@@ -62,14 +62,14 @@
 					<p:outputLabel value="Nome do pai:" for="nomepai" />
 					<p:inputText id="nomepai"
 						value="#{dependenteMB.dependente.nomePai}"
-						styleClass="nome_de_pessoa" required="true"
+						styleClass="nome_de_pessoa" required="false"
 						requiredMessage="Campo obrigatório" />
 					<p:message for="nomepai" />
 
 					<p:outputLabel value="Nome da mãe:" for="nomemae" />
 					<p:inputText id="nomemae"
 						value="#{dependenteMB.dependente.nomeMae}"
-						styleClass="nome_de_pessoa" required="true"
+						styleClass="nome_de_pessoa" required="false"
 						requiredMessage="Campo obrigatório" />
 					<p:message for="nomemae" />
 
@@ -117,7 +117,7 @@
 					<p:outputLabel value="Data de expedição:" for="dataexprg" />
 					<p:inputMask id="dataexprg"
 						value="#{dependenteMB.dependente.rg.dataExpedicao}"
-						styleClass="campo_data" mask="99/99/9999" required="true"
+						styleClass="campo_data" mask="99/99/9999" required="false"
 						requiredMessage="Campo obrigatório">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</p:inputMask>
@@ -137,32 +137,32 @@
 
 					<p:outputLabel value="Pis/Pasep:" for="pispasep" />
 					<p:inputText id="pispasep"
-						value="#{dependenteMB.dependente.pisPasep}" required="true"
+						value="#{dependenteMB.dependente.pisPasep}" required="false"
 						requiredMessage="Campo obrigatório" />
 					<p:message for="pispasep" />
 
 					<p:outputLabel value="Titulo de eleitor:" for="titulo" />
 					<p:inputText id="titulo"
 						value="#{dependenteMB.dependente.tituloEleitor.numero}"
-						required="true" requiredMessage="Campo obrigatório" />
+						required="false" requiredMessage="Campo obrigatório" />
 					<p:message for="titulo" />
 
 					<p:outputLabel value="Zona:" for="zona" />
 					<p:inputText id="zona"
 						value="#{dependenteMB.dependente.tituloEleitor.zona}"
-						required="true" requiredMessage="Campo obrigatório" />
+						required="false" requiredMessage="Campo obrigatório" />
 					<p:message for="zona" />
 
 					<p:outputLabel value="Seçao:" for="secao" />
 					<p:inputText id="secao"
 						value="#{dependenteMB.dependente.tituloEleitor.secao}"
-						required="true" requiredMessage="Campo obrigatório" />
+						required="false" requiredMessage="Campo obrigatório" />
 					<p:message for="secao" />
 
 					<p:outputLabel value="Data de emissão:" for="emissao" />
 					<p:inputMask id="emissao"
 						value="#{dependenteMB.dependente.rg.dataExpedicao}"
-						styleClass="campo_data" mask="99/99/9999" required="true"
+						styleClass="campo_data" mask="99/99/9999" required="false"
 						requiredMessage="Campo obrigatório">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</p:inputMask>
@@ -171,7 +171,7 @@
 					<p:outputLabel value="Tipo sanguíneo:" for="tiposanguineo" />
 					<h:panelGroup>
 						<p:selectOneMenu id="tiposanguineo"
-							value="#{dependenteMB.dependente.tipoSanguineo}" required="true"
+							value="#{dependenteMB.dependente.tipoSanguineo}" required="false"
 							requiredMessage="Campo obrigatório"
 							converterMessage="Tipo inválido">
 							<f:selectItem noSelectionOption="true" itemLabel="" />

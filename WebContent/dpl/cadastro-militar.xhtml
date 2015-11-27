@@ -496,7 +496,7 @@
 
 							<p:outputLabel value="Banco:" for="banco" />
 							<p:selectOneMenu id="banco" value="#{militarMB.militar.banco}"
-								required="true" requiredMessage="Campo obrigatório">
+								required="false" requiredMessage="Campo obrigatório">
 								<f:selectItem noSelectionOption="true" itemLabel="" itemValue="" />
 								<f:selectItems value="#{aplicacaoMB.bancos}" var="_c"
 									itemLabel="#{_c.label}" itemValue="#{_c}" />
@@ -506,13 +506,13 @@
 
 							<p:outputLabel value="Agência:" for="agencia" />
 							<p:inputText id="agencia" styleClass="campo_numero_8"
-								value="#{militarMB.militar.numeroAgencia}" required="true"
+								value="#{militarMB.militar.numeroAgencia}" required="false"
 								requiredMessage="Campo obrigatório" />
 							<p:message for="agencia" />
 
 							<p:outputLabel value="Conta:" for="conta" />
 							<p:inputText id="conta" styleClass="campo_numero_8"
-								value="#{militarMB.militar.numeroConta}" required="true"
+								value="#{militarMB.militar.numeroConta}" required="false"
 								requiredMessage="Campo obrigatório" />
 							<p:message for="conta" />
 
