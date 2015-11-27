@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputScript library="js" name="calendar.js" />
+	<title><ui:insert name="titulo" /></title>
+	<h:outputStylesheet library="css" name="template.css" />
+</h:head>
+<h:body>
+	<p:ajaxStatus onstart="PF('dlgStatus').show();"
+		oncomplete="PF('dlgStatus').hide);" />
+	<p:dialog widgetVar="dlgStatus" id="dlgStatus" modal="true"
+		closable="false" closeOnEscape="false" resizable="false"
+		draggable="false" header="Processando....">
+		<h:graphicImage library="img" name="loading.gif" />
+
+	</p:dialog>
+	<div id="pagina">
+		<div id="topo">
+			<h:graphicImage library="img" name="sicamlogo.png"
+				style="margin-left:150px; max-width:50%" />
+			<h:graphicImage library="img" name="logocbm.png" style="float:right" />
+		</div>
+		<div id="conteudo">
+			<p:menubar id="barramenu">
+				<p:submenu label="DPL" icon="ui-icon-document">
+					<p:submenu label="Cadastro" icon="ui-icon-plus">
+						<p:menuitem value="Militar" url="#{paginasMB.militar}" />
+						<p:menuitem value="Dependente"
+							url="#{paginasMB.cadastroDependente}" />
+						<p:menuitem value="Pensionista"
+							url="#{paginasMB.cadastroPensionista}" />
+					</p:submenu>
+					<p:submenu label="Editar" icon="ui-icon-change">
+						<p:menuitem value="Militar" url="#{paginasMB.editarMilitar}" />
+					</p:submenu>
+				</p:submenu>
+
+				<p:submenu label="CINFOR" icon="ui-icon-document">
+					<p:menuitem value="Permissões" url="#{paginasMB.permissoes}" />
+					<p:menuitem value="Senha" url="#{paginasMB.novaSenha}" />
+				</p:submenu>
+				<p:submenu label="Usuario" icon="ui-icon-person">
+					<p:menuitem value="Sair" url="/j_spring_security_logout" />
+				</p:submenu>
+
+			</p:menubar>
+			<p:sticky target="barramenu"></p:sticky>
+			<ui:insert name="conteudo" />
+		</div>
+	</div>
+</h:body>
+</html>

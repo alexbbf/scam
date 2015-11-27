@@ -1,0 +1,65 @@
+''
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="titulo">SICAM - PROTOCOLO</ui:define>
+	<ui:define name="conteudo">
+
+		<p:panel header="Militar">
+			<h:form>
+				<h:panelGrid columns="4">
+					<p:outputLabel value="Chave de pesquisa:" for="chavepesquisa" />
+					<p:selectOneMenu id="chavepesquisa"
+						value="#{documentoMB.chavePesquisa}" required="true"
+						requiredMessage="Campo obrigatório">
+						<f:selectItems value="#{aplicacaoMB.chavesPesquisaDoc}" var="_p"
+							itemLabel="#{_p.label}" itemValue="#{_p}" />
+					</p:selectOneMenu>
+
+					<p:inputText id="palavrapesquisa"
+						value="#{documentoMB.palavraPesquisa}" styleClass="nome_de_pessoa"
+						required="true" requiredMessage="Campo obrigatório" />
+
+					<p:commandButton icon="ui-icon-search"
+						action="#{militarMB.pesquisar()}" update="tablemilitares" />
+
+				</h:panelGrid>
+
+				<p:dataTable id="tablemilitares" var="_d" style="width:950px;"
+					value="#{militarMB.militaresDTOPesquisa}" selectionMode="single"
+					rowKey="#{_d.id}" emptyMessage="Nenhum militar encontrado"
+					resizableColumns="true" scrollable="true" scrollRows="4"
+					selection="#{militarMB.militarDtoSelecionado}">
+					<p:ajax event="rowSelect" listener="#{militarMB.selecionarDto()}"
+						update=":formdependentes" />
+					<p:column headerText="Posto/Graduação" style="width:150px;">
+						<h:outputText value="#{_d.postoGraduacao.descricao}" />
+					</p:column>
+					<p:column headerText="Nome de Guerra">
+						<h:outputText value="#{_d.nomeGuerra}" />
+					</p:column>
+					<p:column headerText="Nome completo">
+						<h:outputText value="#{_d.nomeCompleto}" />
+					</p:column>
+				</p:dataTable>
+
+			</h:form>
+		</p:panel>
+
+
+		<p:panel header="Cadastr">
+			<h:form id="formdependentes">
+
+			</h:form>
+
+		</p:panel>
+
+
+
+
+	</ui:define>
+</ui:composition>

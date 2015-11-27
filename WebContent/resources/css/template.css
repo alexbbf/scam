@@ -1,0 +1,84 @@
+@CHARSET "UTF-8";
+
+#topo {
+	border-radius: 5px;
+	background-color: #D21E38;
+}
+
+#topo img {
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-left: 10px;
+	height: 150px;
+}
+
+#pagina {
+	width: 90%;
+	background-color: #FFF;
+	margin: auto;
+	max-width: 1920px;
+	min-width: 1280px;
+}
+
+body {
+	background-color: #CCC;
+	font-family: verdana;
+}
+
+fieldset {
+	border-radius: 5px;
+	width: 95%;
+	margin: auto;
+}
+
+legend {
+	padding: 6px;
+	background-color: #D21E38;
+	border-radius: 5px;
+	font-weight: bold;
+	color: #FFF;
+}
+
+.label {
+	text-align: right;
+}
+
+.nome_de_pessoa {
+	width: 350px;
+	text-transform: uppercase;
+}
+
+.caixa_alta {
+	text-transform: uppercase;
+}
+
+.campo_numero_4 {
+	width: 60px;
+}
+
+.campo_numero_8 {
+	width: 90px;
+}
+
+.campo_data input[type="text"] {
+	width: 90px !important;
+}
+
+.campo_numero_10 {
+	width: 130px;
+}
+
+.botao_plus {
+	width: 5px;
+}
+
+.logo_cbm {
+	width: 24%;
+	margin: 0px auto;
+}
+
+.login {
+	padding: 35px;
+	margin: 0px auto;
+	width: 26%;
+}

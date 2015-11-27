@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="titulo">SICAM - CADASTRO DE PENSIONISTA</ui:define>
+	<ui:define name="conteudo">
+
+		<p:panel header="Militar">
+			<h:form>
+				<h:panelGrid columns="4">
+					<p:outputLabel value="Chave de pesquisa:" for="chavepesquisa" />
+					<p:selectOneMenu id="chavepesquisa"
+						value="#{militarMB.chavePesquisa}" required="true"
+						requiredMessage="Campo obrigatório">
+						<f:selectItems value="#{aplicacaoMB.chavesPesquisa}" var="_p"
+							itemLabel="#{_p.label}" itemValue="#{_p}" />
+					</p:selectOneMenu>
+
+					<p:inputText id="palavrapesquisa"
+						value="#{militarMB.palavraPesquisa}" styleClass="nome_de_pessoa"
+						required="true" requiredMessage="Campo obrigatório" />
+
+					<p:commandButton icon="ui-icon-search"
+						action="#{militarMB.pesquisar()}" update="tablemilitares" />
+
+				</h:panelGrid>
+
+				<p:dataTable id="tablemilitares" var="_d" style="width:950px;"
+					value="#{militarMB.militaresDTOPesquisa}" selectionMode="single"
+					rowKey="#{_d.id}" emptyMessage="Nenhum militar encontrado"
+					resizableColumns="true" scrollable="true" scrollRows="4"
+					selection="#{militarMB.militarDtoSelecionado}">
+					<p:ajax event="rowSelect" listener="#{militarMB.selecionarDto()}"
+						update=":formpensionistas" />
+					<p:column headerText="Posto/Graduação" style="width:150px;">
+						<h:outputText value="#{_d.postoGraduacao.descricao}" />
+					</p:column>
+					<p:column headerText="Nome de Guerra">
+						<h:outputText value="#{_d.nomeGuerra}" />
+					</p:column>
+					<p:column headerText="Nome completo">
+						<h:outputText value="#{_d.nomeCompleto}" />
+					</p:column>
+				</p:dataTable>
+
+			</h:form>
+		</p:panel>
+
+
+		<p:panel header="Cadastro de pensionista">
+			<h:form id="formpensionistas">
+
+				<p:panel id="paneltipopensionista" header="Tipo pensionista">
+					<h:panelGrid columns="3" columnClasses="label,value,label">
+						<p:outputLabel value="Tipo pensionista:" for="tipopensionista" />
+						<p:selectOneMenu id="tipopensionista"
+							value="#{pensionistaMB.pensionista.tipoPensionista}"
+							required="true" requiredMessage="Campo obrigatório">
+							<f:selectItem noSelectionOption="true" itemLabel="" itemValue="" />
+							<f:selectItems value="#{aplicacaoMB.tipoPensionistas}" var="_t"
+								itemLabel="#{_t.label}" itemValue="#{_t}" />
+							<p:ajax update="panelbeneficiario" />
+						</p:selectOneMenu>
+						<p:message for="tipopensionista" />
+					</h:panelGrid>
+				</p:panel>
+
+				<p:panel id="panelpensionista" header="Dados do Pensionista">
+					<h:panelGrid columns="3" columnClasses="label,value,label">
+						<p:outputLabel value="Nome:" for="nomepensionista" />
+						<p:inputText id="nomepensionista"
+							value="#{pensionistaMB.pensionista.nome}"
+							styleClass="nome_de_pessoa" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="nomepensionista" />
+
+						<p:outputLabel value="CPF:" for="cpfpensionista" />
+						<p:inputMask mask="999.999.999-99" id="cpfpensionista"
+							value="#{pensionistaMB.pensionista.cpfDependente}"
+							styleClass="campo_numero_10" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="cpfpensionista" />
+
+						<p:outputLabel value="RG:" for="rgpensionista" />
+						<p:inputText id="rgpensionista"
+							value="#{pensionistaMB.pensionista.rgDependente}"
+							styleClass="campo_numero_6" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="rgpensionista" />
+
+						<p:outputLabel value="Telfone:" for="telpensionista" />
+						<p:inputText id="telpensionista"
+							value="#{pensionistaMB.pensionista.telefoneDependente}"
+							styleClass="campo_numero_10" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="telpensionista" />
+
+						<p:outputLabel value="Parentesco:" for="parentesco" />
+						<p:inputText id="parentesco"
+							value="#{pensionistaMB.pensionista.tipoParentesco}"
+							styleClass="campo_numero_10" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="parentesco" />
+
+						<p:outputLabel value="Data de Nascimento:" for="datanascimento" />
+						<p:inputMask id="datanascimento"
+							value="#{pensionistaMB.pensionista.dataNascimentoDependente}"
+							styleClass="campo_data" mask="99/99/9999" required="true"
+							requiredMessage="Campo obrigatório">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</p:inputMask>
+						<p:message for="datanascimento" />
+
+						<p:outputLabel value="Rua:" for="ruadependente" />
+						<p:inputText id="ruadependente"
+							value="#{pensionistaMB.pensionista.ruaDependente}"
+							required="true" requiredMessage="Campo obrigatório" />
+						<p:message for="ruadependente" />
+
+						<p:outputLabel value="Bairro:" for="bairrodependente" />
+						<p:inputText id="bairrodependente"
+							value="#{pensionistaMB.pensionista.bairroDependente}"
+							required="true" requiredMessage="Campo obrigatório" />
+						<p:message for="bairrodependente" />
+
+						<p:outputLabel value="Número:" for="numerodependente" />
+						<p:inputText id="numerodependente"
+							value="#{pensionistaMB.pensionista.numeroCasaDependente}"
+							required="true" requiredMessage="Campo obrigatório" />
+						<p:message for="numerodependente" />
+
+						<p:outputLabel value="Cidade:" for="cidadedependente" />
+						<p:inputText id="cidadedependente"
+							value="#{pensionistaMB.pensionista.cidadeDependente}"
+							required="true" requiredMessage="Campo obrigatório" />
+						<p:message for="cidadedependente" />
+
+						<p:outputLabel value="Estado:" for="estadodependente" />
+						<p:inputText id="estadodependente"
+							value="#{pensionistaMB.pensionista.estadoDependente}"
+							required="true" requiredMessage="Campo obrigatório" />
+						<p:message for="estadodependente" />
+					</h:panelGrid>
+				</p:panel>
+
+
+				<p:panel id="panelbeneficiario" header="Dados do Beneficiario"
+					visible="#{pensionistaMB.beneficiario}">
+					<h:panelGrid columns="3" columnClasses="label,value,label">
+						<p:outputLabel value="Nome:" for="nomebeneficiario" />
+						<p:inputText id="nomebeneficiario"
+							value="#{pensionistaMB.pensionista.nomeBeneficiario}"
+							styleClass="nome_de_pessoa" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="nomebeneficiario" />
+
+						<p:outputLabel value="CPF:" for="cpfbeneficiario" />
+						<p:inputMask mask="999.999.999-99" id="cpfbeneficiario"
+							value="#{pensionistaMB.pensionista.cpfBeneficiario}"
+							styleClass="campo_numero_10" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="cpfbeneficiario" />
+
+						<p:outputLabel value="RG:" for="rgbeneficiario" />
+						<p:inputText id="rgbeneficiario"
+							value="#{pensionistaMB.pensionista.rgBeneficiario}"
+							styleClass="campo_numero_6" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="rgbeneficiario" />
+
+						<p:outputLabel value="Telfone:" for="telbeneficiario" />
+						<p:inputText id="telbeneficiario"
+							value="#{pensionistaMB.pensionista.telefoneBeneficiario}"
+							styleClass="campo_numero_10" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="telbeneficiario" />
+
+						<p:outputLabel value="Parentesco c/ o pensionista:"
+							for="parentescobeneficiario" />
+						<p:inputText id="parentescobeneficiario"
+							value="#{pensionistaMB.pensionista.tipoParentescoComDependente}"
+							styleClass="campo_numero_10" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="parentescobeneficiario" />
+
+						<p:outputLabel value="Data de Nascimento:"
+							for="datanascimentobeneficiario" />
+						<p:inputMask id="datanascimentobeneficiario"
+							value="#{pensionistaMB.pensionista.dataNascimentoBeneficiario}"
+							styleClass="campo_data" mask="99/99/9999" required="true"
+							requiredMessage="Campo obrigatório">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</p:inputMask>
+						<p:message for="datanascimentobeneficiario" />
+
+						<p:outputLabel value="Rua:" for="ruabeneficiario" />
+						<p:inputText id="ruabeneficiario"
+							value="#{pensionistaMB.pensionista.ruaBeneficiario}"
+							required="true" requiredMessage="Campo obrigatório" />
+						<p:message for="ruabeneficiario" />
+
+						<p:outputLabel value="Bairro:" for="bairrobeneficiario" />
+						<p:inputText id="bairrobeneficiario"
+							value="#{pensionistaMB.pensionista.bairroBeneficiario}"
+							required="true" requiredMessage="Campo obrigatório" />
+						<p:message for="bairrobeneficiario" />
+
+						<p:outputLabel value="Número:" for="numerobeneficiario" />
+						<p:inputText id="numerobeneficiario"
+							value="#{pensionistaMB.pensionista.numeroBeneficiario}"
+							required="true" requiredMessage="Campo obrigatório" />
+						<p:message for="numerobeneficiario" />
+
+						<p:outputLabel value="Cidade:" for="cidadebeneficiario" />
+						<p:inputText id="cidadebeneficiario"
+							value="#{pensionistaMB.pensionista.cidadeBeneficiario}"
+							required="true" requiredMessage="Campo obrigatório" />
+						<p:message for="cidadebeneficiario" />
+
+						<p:outputLabel value="Estado:" for="estadobeneficiario" />
+						<p:inputText id="estadobeneficiario"
+							value="#{pensionistaMB.pensionista.estadoBeneficiario}"
+							required="true" requiredMessage="Campo obrigatório" />
+						<p:message for="estadobeneficiario" />
+					</h:panelGrid>
+				</p:panel>
+				<p:panel id="paneldadosadicionionais" header="Dados adicionais">
+					<h:panelGrid columns="3">
+						<p:outputLabel value="Pis/Pasep:" for="pispasep" />
+						<p:inputText id="pispasep"
+							value="#{pensionistaMB.pensionista.pisPasep}" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="pispasep" />
+
+						<p:outputLabel value="Doc. referência:" for="docreferencia" />
+						<p:inputText id="docreferencia"
+							value="#{pensionistaMB.pensionista.docRefencia}" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="docreferencia" />
+
+						<p:outputLabel value="Decisão:" for="decisao" />
+						<p:inputText id="decisao"
+							value="#{pensionistaMB.pensionista.decisao}" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="decisao" />
+
+						<p:outputLabel value="Data de Inclusão:" for="datainclusao" />
+						<p:inputMask id="datainclusao"
+							value="#{pensionistaMB.pensionista.dataInclusao}"
+							styleClass="campo_data" mask="99/99/9999" required="true"
+							requiredMessage="Campo obrigatório">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</p:inputMask>
+						<p:message for="datainclusao" />
+
+						<p:outputLabel value="Banco:" for="banco" />
+						<p:selectOneMenu id="banco"
+							value="#{pensionistaMB.pensionista.banco}" required="true"
+							requiredMessage="Campo obrigatório">
+							<f:selectItems value="#{aplicacaoMB.bancos}" var="_r"
+								itemLabel="#{_r.label}" itemValue="#{_r}" />
+						</p:selectOneMenu>
+						<p:message for="banco" />
+
+
+						<p:outputLabel value="Agencia:" for="agencia" />
+						<p:inputText id="agencia"
+							value="#{pensionistaMB.pensionista.numeroAgencia}"
+							required="true" requiredMessage="Campo obrigatório" />
+						<p:message for="agencia" />
+
+						<p:outputLabel value="Conta:" for="conta" />
+						<p:inputText id="conta"
+							value="#{pensionistaMB.pensionista.numeroConta}" required="true"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="conta" />
+					</h:panelGrid>
+
+				</p:panel>
+
+
+
+				<p:commandButton value="Adicionar pensionista" icon="ui-icon-plus"
+					action="#{militarMB.militar.adicionarPensionista(pensionistaMB.pensionistaNew)}"
+					update="@form" type="submit" />
+
+				<hr />
+				<p:dataTable id="tablepensionistas" var="_d"
+					value="#{militarMB.militar.pensionistas}"
+					emptyMessage="Nenhum pensionista informado" resizableColumns="true"
+					scrollable="true" scrollWidth="1200">
+					<p:column headerText="Nome pensionista" width="150">
+						<h:outputText value="#{_d.nome}" />
+					</p:column>
+					<p:column headerText="Doc. Referencia" width="150">
+						<h:outputText value="#{_d.docRefencia}" />
+					</p:column>
+					<p:column headerText="Decisão" width="150">
+						<h:outputText value="#{_d.decisao}" />
+					</p:column>
+					<p:column headerText="Nome beneficiario" width="150">
+						<h:outputText value="#{_d.nomeBeneficiario}" />
+					</p:column>
+					<p:column headerText="Pis/Pasep" width="100">
+						<h:outputText value="#{_d.pisPasep}" />
+					</p:column>
+					<p:column headerText="Banco" width="150">
+						<h:outputText value="#{_d.banco.label}" />
+					</p:column>
+					<p:column headerText="Agência" width="100">
+						<h:outputText value="#{_d.numeroAgencia}" />
+					</p:column>
+					<p:column headerText="Conta" width="100">
+						<h:outputText value="#{_d.numeroConta}" />
+					</p:column>
+
+				</p:dataTable>
+
+
+				<hr />
+				<p:commandButton id="salvar" value="Salvar" immediate="true"
+					action="#{militarMB.salvar()}" update="formpensionistas" />
+
+			</h:form>
+
+		</p:panel>
+
+
+
+
+	</ui:define>
+</ui:composition>

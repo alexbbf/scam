@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="titulo">SICAM - CADASTRO DE DEPENDENTES</ui:define>
+	<ui:define name="conteudo">
+
+		<p:panel header="Militar">
+			<h:form>
+				<h:panelGrid columns="4">
+					<p:outputLabel value="Chave de pesquisa:" for="chavepesquisa" />
+					<p:selectOneMenu id="chavepesquisa"
+						value="#{militarMB.chavePesquisa}" required="true"
+						requiredMessage="Campo obrigatório">
+						<f:selectItems value="#{aplicacaoMB.chavesPesquisa}" var="_p"
+							itemLabel="#{_p.label}" itemValue="#{_p}" />
+					</p:selectOneMenu>
+
+					<p:inputText id="palavrapesquisa"
+						value="#{militarMB.palavraPesquisa}" styleClass="nome_de_pessoa"
+						required="true" requiredMessage="Campo obrigatório" />
+
+					<p:commandButton icon="ui-icon-search"
+						action="#{militarMB.pesquisar()}" update="tablemilitares" />
+
+				</h:panelGrid>
+
+				<p:dataTable id="tablemilitares" var="_d" style="width:950px;"
+					value="#{militarMB.militaresDTOPesquisa}" selectionMode="single"
+					rowKey="#{_d.id}" emptyMessage="Nenhum militar encontrado"
+					resizableColumns="true" scrollable="true" scrollRows="4"
+					selection="#{militarMB.militarDtoSelecionado}">
+					<p:ajax event="rowSelect" listener="#{militarMB.selecionarDto()}"
+						update=":formdependentes" />
+					<p:column headerText="Posto/Graduação" style="width:150px;">
+						<h:outputText value="#{_d.postoGraduacao.descricao}" />
+					</p:column>
+					<p:column headerText="Nome de Guerra">
+						<h:outputText value="#{_d.nomeGuerra}" />
+					</p:column>
+					<p:column headerText="Nome completo">
+						<h:outputText value="#{_d.nomeCompleto}" />
+					</p:column>
+				</p:dataTable>
+
+			</h:form>
+		</p:panel>
+
+
+		<p:panel header="Cadastro de dependentes">
+			<h:form id="formdependentes">
+				<h:panelGrid columns="3" columnClasses="label,value,label">
+					<p:outputLabel value="Nome:" for="nome" />
+					<p:inputText id="nome" value="#{dependenteMB.dependente.nome}"
+						styleClass="nome_de_pessoa" required="true"
+						requiredMessage="Campo obrigatório" />
+					<p:message for="nome" />
+
+					<p:outputLabel value="Nome do pai:" for="nomepai" />
+					<p:inputText id="nomepai"
+						value="#{dependenteMB.dependente.nomePai}"
+						styleClass="nome_de_pessoa" required="true"
+						requiredMessage="Campo obrigatório" />
+					<p:message for="nomepai" />
+
+					<p:outputLabel value="Nome da mãe:" for="nomemae" />
+					<p:inputText id="nomemae"
+						value="#{dependenteMB.dependente.nomeMae}"
+						styleClass="nome_de_pessoa" required="true"
+						requiredMessage="Campo obrigatório" />
+					<p:message for="nomemae" />
+
+					<p:outputLabel value="Data de Nascimento:" for="datanascimento" />
+					<p:inputMask id="datanascimento"
+						value="#{dependenteMB.dependente.dataNascimento}"
+						styleClass="campo_data" mask="99/99/9999" required="true"
+						requiredMessage="Campo obrigatório">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</p:inputMask>
+					<p:message for="datanascimento" />
+
+					<p:outputLabel value="Naturalidade:" for="naturalidade" />
+					<p:inputText id="naturalidade"
+						value="#{dependenteMB.dependente.naturalidade}" required="true"
+						requiredMessage="Campo obrigatório" />
+					<p:message for="naturalidade" />
+
+					<p:outputLabel value="Parentesco:" for="parentesco" />
+					<p:selectOneMenu id="parentesco"
+						value="#{dependenteMB.dependente.parentesco}" required="true"
+						requiredMessage="Campo obrigatório">
+						<f:selectItem noSelectionOption="true" itemLabel=""
+							itemValue="#{null}" />
+						<f:selectItems value="#{aplicacaoMB.parentescos}" var="_p"
+							itemLabel="#{_p.label}" itemValue="#{_p}" />
+					</p:selectOneMenu>
+					<p:message for="parentesco" />
+
+					<p:outputLabel value="Tipo:" for="tipodependente" />
+					<p:selectOneMenu id="tipodependente"
+						value="#{dependenteMB.dependente.tipoDependente}" required="true"
+						requiredMessage="Campo obrigatório">
+						<f:selectItems value="#{aplicacaoMB.tipoDependente}" var="_p"
+							itemLabel="#{_p.label}" itemValue="#{_p}" />
+					</p:selectOneMenu>
+					<p:message for="tipodependente" />
+
+					<p:outputLabel value="Numero RG:" for="numerorg" />
+					<p:inputText id="numerorg"
+						value="#{dependenteMB.dependente.rg.numero}" required="true"
+						requiredMessage="Campo obrigatório" />
+					<p:message for="numerorg" />
+
+					<p:outputLabel value="Data de expedição:" for="dataexprg" />
+					<p:inputMask id="dataexprg"
+						value="#{dependenteMB.dependente.rg.dataExpedicao}"
+						styleClass="campo_data" mask="99/99/9999" required="true"
+						requiredMessage="Campo obrigatório">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</p:inputMask>
+					<p:message for="dataexprg" />
+
+					<p:outputLabel value="Orgão expeditor:" for="orgaoexp" />
+					<p:inputText id="orgaoexp"
+						value="#{dependenteMB.dependente.rg.orgaoExpeditor}"
+						required="true" requiredMessage="Campo obrigatório" />
+					<p:message for="orgaoexp" />
+
+					<p:outputLabel value="CPF:" for="cpf" />
+					<p:inputMask id="cpf" mask="999.999.999-99"
+						value="#{dependenteMB.dependente.cpf}" required="true"
+						requiredMessage="Campo obrigatório" />
+					<p:message for="cpf" />
+
+					<p:outputLabel value="Pis/Pasep:" for="pispasep" />
+					<p:inputText id="pispasep"
+						value="#{dependenteMB.dependente.pisPasep}" required="true"
+						requiredMessage="Campo obrigatório" />
+					<p:message for="pispasep" />
+
+					<p:outputLabel value="Titulo de eleitor:" for="titulo" />
+					<p:inputText id="titulo"
+						value="#{dependenteMB.dependente.tituloEleitor.numero}"
+						required="true" requiredMessage="Campo obrigatório" />
+					<p:message for="titulo" />
+
+					<p:outputLabel value="Zona:" for="zona" />
+					<p:inputText id="zona"
+						value="#{dependenteMB.dependente.tituloEleitor.zona}"
+						required="true" requiredMessage="Campo obrigatório" />
+					<p:message for="zona" />
+
+					<p:outputLabel value="Seçao:" for="secao" />
+					<p:inputText id="secao"
+						value="#{dependenteMB.dependente.tituloEleitor.secao}"
+						required="true" requiredMessage="Campo obrigatório" />
+					<p:message for="secao" />
+
+					<p:outputLabel value="Data de emissão:" for="emissao" />
+					<p:inputMask id="emissao"
+						value="#{dependenteMB.dependente.rg.dataExpedicao}"
+						styleClass="campo_data" mask="99/99/9999" required="true"
+						requiredMessage="Campo obrigatório">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</p:inputMask>
+					<p:message for="dataexprg" />
+
+					<p:outputLabel value="Tipo sanguíneo:" for="tiposanguineo" />
+					<h:panelGroup>
+						<p:selectOneMenu id="tiposanguineo"
+							value="#{dependenteMB.dependente.tipoSanguineo}" required="true"
+							requiredMessage="Campo obrigatório"
+							converterMessage="Tipo inválido">
+							<f:selectItem noSelectionOption="true" itemLabel="" />
+							<f:selectItems value="#{aplicacaoMB.tiposSanguineos}" var="_t"
+								itemLabel="#{_t}" itemValue="#{_t}" />
+						</p:selectOneMenu>
+						<p:selectOneMenu id="fatorrh"
+							value="#{dependenteMB.dependente.fatorRh}" required="true"
+							requiredMessage="Campo obrigatório"
+							converterMessage="Fator inválido">
+							<f:selectItem noSelectionOption="true" itemLabel="" />
+							<f:selectItems value="#{aplicacaoMB.fatoresRH}" var="_f"
+								itemLabel="#{_f.label}" itemValue="#{_f}" />
+						</p:selectOneMenu>
+
+					</h:panelGroup>
+					<p:message for="tiposanguineo" />
+				</h:panelGrid>
+
+				<hr />
+				<p:commandButton value="Adicionar dependente" icon="ui-icon-plus"
+					action="#{militarMB.militar.adicionarDependente(dependenteMB.dependenteNew)}"
+					update="@form" type="submit" />
+
+				<hr />
+				<p:dataTable id="tabledependentes" var="_d"
+					value="#{militarMB.militar.dependentes}"
+					emptyMessage="Nenhum dependente infomado" resizableColumns="true"
+					scrollable="true" scrollWidth="1200">
+					<p:column headerText="Nome" width="150" id="colunanome">
+						<h:outputText value="#{_d.nome}" />
+					</p:column>
+					<p:column headerText="Nome do Pai" width="150">
+						<h:outputText value="#{_d.nomePai}" />
+					</p:column>
+					<p:column headerText="Nome da Mãe" width="150">
+						<h:outputText value="#{_d.nomeMae}" />
+					</p:column>
+					<p:column headerText="Data de Nasc" width="150">
+						<h:outputText value="#{_d.dataNascimento}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Naturalidade" width="150">
+						<h:outputText value="#{_d.naturalidade}" />
+					</p:column>
+					<p:column headerText="Parentesco" width="100">
+						<h:outputText value="#{_d.parentesco.label}" />
+					</p:column>
+					<p:column headerText="Tipo" width="100">
+						<h:outputText value="#{_d.tipoDependente}" />
+					</p:column>
+					<p:column headerText="RG" width="100">
+						<h:outputText value="#{_d.rg.numero}" />
+					</p:column>
+					<p:column headerText="CPF" width="120">
+						<h:outputText value="#{_d.cpf}" />
+					</p:column>
+					<p:column headerText="Pis/Pasep" width="100">
+						<h:outputText value="#{_d.pisPasep}" />
+					</p:column>
+					<p:column headerText="Titulo El." width="120">
+						<h:outputText value="#{_d.tituloEleitor.numero}" />
+					</p:column>
+					<p:column headerText="Tipo sanguíneo" width="150">
+						<h:outputText value="#{_d.tipoSanguineo} #{_d.fatorRh.label}" />
+					</p:column>
+
+					<p:column headerText="Remover" width="150">
+
+					</p:column>
+				</p:dataTable>
+
+
+				<hr />
+				<p:commandButton id="salvar" value="Salvar" immediate="true"
+					action="#{militarMB.salvar()}" update="formdependentes" />
+
+			</h:form>
+
+		</p:panel>
+
+
+
+
+	</ui:define>
+</ui:composition>
