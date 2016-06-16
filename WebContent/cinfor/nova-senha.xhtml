@@ -7,9 +7,9 @@
 
 	<ui:define name="titulo">SICAM - CADASTRO DE SENHA</ui:define>
 	<ui:define name="conteudo">
-
-		<p:panel header="Militar">
-			<h:form>
+		<p:growl id="growl" autoUpdate="true" globalOnly="true" />
+		<p:panel id="panelmilitar" header="Militar">
+			<h:form id="formmilitar">
 				<h:panelGrid columns="4">
 					<p:outputLabel value="Chave de pesquisa:" for="chavepesquisa" />
 					<p:selectOneMenu id="chavepesquisa"
@@ -50,21 +50,21 @@
 		</p:panel>
 
 
-		<p:panel header="Cadastro de senha">
+		<p:panel id="panelsenha" header="Cadastro de senha">
 			<h:form id="formsenha">
-
-				<h:outputLabel for="senha" value="Senha:" />
-				<p:password id="senha" value="#{militarMB.militar.senha}"
-					feedback="true" promptLabel="Insira uma senha" goodLabel="BOM"
-					strongLabel="FORTE" weakLabel="FRACA" match="senha2"
-					required="true" validatorMessage="Senhas não conferem."
-					requiredMessage="Digite uma senha." />
-				<h:outputLabel for="senha2" value="Confirmar Senha:" />
-				<p:password id="senha2" value="#{militarMB.militar.senha}" />
+				<h:panelGrid columns="2">
+					<h:outputLabel for="senha" value="Senha:" />
+					<p:password id="senha" value="#{militarMB.militar.senha}"
+						feedback="true" promptLabel="Insira uma senha" goodLabel="BOM"
+						strongLabel="FORTE" weakLabel="FRACA" match="senha2"
+						required="true" validatorMessage="Senhas não conferem."
+						requiredMessage="Digite uma senha." />
+					<h:outputLabel for="senha2" value="Confirmar Senha:" />
+					<p:password id="senha2" value="#{militarMB.militar.senha}" />
+				</h:panelGrid>
 				<hr />
-				<p:commandButton id="salvar" value="Salvar" 
-					action="#{militarMB.salvar()}"  update="senha senha2" />
-
+				<p:commandButton id="salvar" value="Salvar"
+					action="#{militarMB.salvarSenha()}" update="@form" />
 			</h:form>
 
 		</p:panel>

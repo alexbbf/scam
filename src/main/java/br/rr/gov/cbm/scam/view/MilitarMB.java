@@ -55,11 +55,16 @@ public class MilitarMB {
 
 	public void salvar() {
 		camposUppercase();
-		militar.setSenha(FrameWork.criptografar(militar.getSenha()));
-		System.out.println(militar.getSenha());
 		militar = business.salvar(militar);
 		JsfUtil.showInfoMessage("Dados Salvos");
 	}
+	
+	public void salvarSenha() {
+		militar.setSenha(FrameWork.criptografar(militar.getSenha()));
+		militar = new Militar();
+		JsfUtil.showInfoMessage("Dados Salvos");
+	}
+
 
 	public void pesquisarNome() {
 		militaresDto = business.pesquisarNome(nomePesquisa);
