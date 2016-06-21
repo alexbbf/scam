@@ -7,34 +7,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 public class PapDPST {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@ManyToOne
 	private ProcessoDPST processo;
-	
+
 	private String numPAP;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataPAP;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date entrega;
-	
+
 	private String retirante;
-	
-	@ManyToMany
-	private List<Militar> analistas;
-	
+
+	@OneToMany(mappedBy = "pap")
+	private List<PapMilitar> analistas;
+
 	@ManyToOne
 	private Militar responsavelEntrega;
 
@@ -78,11 +78,19 @@ public class PapDPST {
 		this.retirante = retirante;
 	}
 
-	public List<Militar> getAnalistas() {
+	public ProcessoDPST getProcesso() {
+		return processo;
+	}
+
+	public void setProcesso(ProcessoDPST processo) {
+		this.processo = processo;
+	}
+
+	public List<PapMilitar> getAnalistas() {
 		return analistas;
 	}
 
-	public void setAnalistas(List<Militar> analistas) {
+	public void setAnalistas(List<PapMilitar> analistas) {
 		this.analistas = analistas;
 	}
 
@@ -118,7 +126,5 @@ public class PapDPST {
 			return false;
 		return true;
 	}
-	
-	
 
 }
