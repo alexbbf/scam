@@ -4,10 +4,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/security"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/security     http://www.springframework.org/schema/security/spring-security.xsd
-							     http://www.springframework.org/schema/beans/spring-beans.xsd
-							     http://www.springframework.org/schema/beans 		
-							     http://www.springframework.org/schema/context/spring-context.xsd
-							     http://www.springframework.org/schema/context">
+	http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd	
+						http://www.springframework.org/schema/context 		
+						http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:annotation-config />
 	<beans:bean id="appUserDetailService"
@@ -23,6 +23,8 @@
 			access="hasAnyRole('ROLE_DPL,ROLE_CINFOR')"></intercept-url>
 		<intercept-url pattern="/ceph/**"
 			access="hasAnyRole('ROLE_CEPH,ROLE_CINFOR')"></intercept-url>
+		<intercept-url pattern="/dpst/**"
+			access="hasAnyRole('ROLE_DPST,ROLE_CINFOR')" />
 		<intercept-url pattern="/cinfor/**" access="hasAnyRole('ROLE_CINFOR')" />
 	</http>
 	<authentication-manager>
