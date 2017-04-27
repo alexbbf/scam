@@ -36,6 +36,7 @@ public class Endereco {
 	@Column(name = "end_tipomoradia")
 	private TipoMoradia tipoMoradia;
 	
+
 	
 	
 	
@@ -88,8 +89,6 @@ public class Endereco {
 	public void setLogradouro(Logradouro logradouro) {
 		this.logradouro = logradouro;
 	}
-
-
 
 	public String getNumero() {
 		return numero;
