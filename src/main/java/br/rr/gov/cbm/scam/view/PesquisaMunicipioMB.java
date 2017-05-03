@@ -40,9 +40,19 @@ public class PesquisaMunicipioMB {
 		s= s.trim();
 		return municipioBusiness.autoCompleteMunicipio(s);
 	}
-
+	
 	public void listaEstadoPeloPais() {
 		estados = estadoBusiness.listarPorPais(pais);
+	}
+	
+	public void listaMunicipioRR() {
+		municipios = municipioBusiness.listaMunicipioRR();
+
+	}
+	
+	public List<Municipio> autoCompleteMunicipioRR(String s){
+		s= s.trim();
+		return municipioBusiness.autoCompleteMunicipioRR(s);
 	}
 
 	public void listaMunicipioPeloEstado() {

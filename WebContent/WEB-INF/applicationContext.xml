@@ -26,6 +26,7 @@
 		<intercept-url pattern="/dpst/**"
 			access="hasAnyRole('ROLE_DPST,ROLE_CINFOR')" />
 		<intercept-url pattern="/cinfor/**" access="hasAnyRole('ROLE_CINFOR')" />
+		<intercept-url pattern="/cmdop/cocb/**" access="hasAnyRole('ROLE_CINFOR')" />
 	</http>
 	<authentication-manager>
 		<authentication-provider user-service-ref="appUserDetailService">

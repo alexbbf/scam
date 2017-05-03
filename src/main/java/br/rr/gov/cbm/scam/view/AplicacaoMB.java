@@ -19,6 +19,7 @@ import br.rr.gov.cbm.scam.bean.Sexo;
 import br.rr.gov.cbm.scam.bean.SituacaoCurso;
 import br.rr.gov.cbm.scam.bean.SituacaoMilitar;
 import br.rr.gov.cbm.scam.bean.SituacaoMilitarAtiva;
+import br.rr.gov.cbm.scam.bean.SituacaoOcorrencia;
 import br.rr.gov.cbm.scam.bean.TipoCurso;
 import br.rr.gov.cbm.scam.bean.TipoDependente;
 import br.rr.gov.cbm.scam.bean.TipoLogradouro;
@@ -58,6 +59,7 @@ public class AplicacaoMB {
 	private ChavePesquisaDocumento[] chavesPesquisaDoc = ChavePesquisaDocumento.values();
 	private TipoPensionista[] tipoPensionistas = TipoPensionista.values();
 	private Grupo[] grupos = Grupo.values();
+	private SituacaoOcorrencia[] situacaoOcorrencias = SituacaoOcorrencia.values();
 	
 	public ChavePesquisaDocumento[] getChavesPesquisaDoc() {
 		return chavesPesquisaDoc;
@@ -65,6 +67,10 @@ public class AplicacaoMB {
 	
 	public Grupo[] getGrupos() {
 		return grupos;
+	}
+	
+	public SituacaoOcorrencia[] getSituacaoOcorrencias() {
+		return situacaoOcorrencias;
 	}
 	
 	public TipoPensionista[] getTipoPensionistas() {

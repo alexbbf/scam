@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="titulo">SICAM - NOVA OCORRÊNCIA </ui:define>
+	<ui:define name="conteudo">
+		<p:growl id="growl" autoUpdate="true" globalOnly="true" />
+
+		<h:panelGroup id="groupview">
+			<p:panel>
+				<h:form>
+					<h:panelGrid columns="3" columnClasses="label,value">
+						<p:outputLabel value="Solicitante" for="solicitante" />
+						<p:inputText id="solicitante"
+							value="#{ocorrenciaMB.ocorrencia.solicitante.nome}"
+							required="true" requiredMessage="Campo obrigatório"
+							styleClass="nome_de_pessoa"	 />
+						<p:message for="solicitante" />
+
+						<p:outputLabel value="Tipo logradrouro:" for="tipologradouro" />
+						<p:selectOneMenu id="tipologradouro"
+							value="#{logradouroMB.tipoLogradouro}" required="true"
+							requiredMessage="Campo obrigatório">
+							<f:selectItem noSelectionOption="true" itemLabel="" itemValue="" />
+							<f:selectItems value="#{aplicacaoMB.tiposLogradouro}" var="_t"
+								itemLabel="#{_t.label}" itemValue="#{_t}" />
+							<p:ajax process="@this" />
+						</p:selectOneMenu>
+						<p:message for="tipologradouro" />
+
+						<p:outputLabel value="Logradouro:" for="logradouro" />
+						<h:panelGroup>
+							<p:autoComplete id="logradouro" required="true"
+								converter="entityConverter" forceSelection="true"
+								requiredMessage="Campo Obrigatório!"
+								value="#{ocorrenciaMB.ocorrencia.endereco.logradouro}"
+								completeMethod="#{logradouroMB.autoCompleteLogra}" var="l"
+								itemLabel="#{l.descricao}" itemValue="#{l}" />
+							<p:commandButton icon="ui-icon-plus"
+								onclick="PF('dlglogradouro').show();" immediate="true"
+								styleClass="botao_plus" />
+						</h:panelGroup>
+						<p:message for="logradouro" />
+
+						<p:outputLabel value="Numero:" for="numeroend" />
+						<p:inputText id="numeroend"
+							value="#{ocorrenciaMB.ocorrencia.endereco.numero}"
+							required="true" styleClass="campo_numero_4"
+							requiredMessage="Campo obrigatório" />
+						<p:message for="numeroend" />
+
+						<p:outputLabel value="Bairro:" for="bairro" />
+						<h:panelGroup>
+							<p:autoComplete id="bairro" required="true" forceSelection="true"
+								requiredMessage="Campo Obrigatório!" converter="entityConverter"
+								value="#{ocorrenciaMB.ocorrencia.endereco.bairro}"
+								completeMethod="#{bairroMB.autoCompleteBairro}" var="b"
+								itemLabel="#{b.descricao}" itemValue="#{b}" />
+							<p:commandButton icon="ui-icon-plus" styleClass="botao_plus"
+								onclick="PF('dlgbairro').show();" immediate="true" />
+						</h:panelGroup>
+						<p:message for="bairro" />
+
+						<p:outputLabel value="Complemento:" for="complemento" />
+						<p:inputText id="complemento"
+							value="#{ocorrenciaMB.ocorrencia.endereco.complemento}"
+							required="false" requiredMessage="Campo obrigatório" />
+						<p:message for="complemento" />
+
+						<p:outputLabel value="Referência:" for="referencia" />
+						<p:inputText id="referencia"
+							value="#{ocorrenciaMB.ocorrencia.endereco.referencia}"
+							required="false" requiredMessage="Campo obrigatório" />
+						<p:message for="referencia" />
+
+						<p:outputLabel value="Município:" for="municipioend" />
+						<p:autoComplete id="municipioend" required="true"
+							converter="entityConverter" forceSelection="true"
+							requiredMessage="Compo Obrigatório!"
+							value="#{ocorrenciaMB.ocorrencia.endereco.municipio}"
+							completeMethod="#{pesquisaMunicipioMB.autoCompleteMunicipioRR}"
+							var="m" itemLabel="#{m.descricao}" 
+							itemValue="#{m}" />
+						<p:message for="municipioend" />
+
+						<p:outputLabel value="Telefone:" for="telcelular" />
+						<p:inputText id="telcelular" styleClass="campo_numero_10"
+							value="#{ocorrenciaMB.ocorrencia.solicitante.telefone}"
+							required="false" requiredMessage="Campo obrigatório" />
+						<p:message for="telcelular" />
+
+						<p:outputLabel value="Documento:" for="documento" />
+						<p:inputText id="documento"
+							value="#{ocorrenciaMB.ocorrencia.solicitante.documento}"
+							required="false" requiredMessage="Campo obrigatório" />
+						<p:message for="documento" />
+
+						<p:outputLabel value="Cod. da Ocorrência:" for="codocorrencia" />
+						<p:autoComplete id="codocorrencia" required="true"
+							converter="entityConverter" forceSelection="true"
+							requiredMessage="Compo Obrigatório!"
+							value="#{ocorrenciaMB.ocorrencia.codOcorrencia}"
+							completeMethod="#{codOcorrenciaMB.autoCompleteCodOcorrencia}"
+							var="m" itemLabel="#{m.codigo} #{m.descricao}" itemValue="#{m}" />
+						<p:message for="codocorrencia" />
+
+						<p:outputLabel for="horaaviso" value="Hora aviso:" />
+						<p:calendar id="horaaviso"
+							value="#{ocorrenciaMB.ocorrencia.horaAviso}" pattern="HH:mm"
+							timeOnly="true" mask="99:99" locale="pt"  />
+
+
+					</h:panelGrid>
+					<hr />
+					<p:commandButton id="salvar3" value="Salvar e Avançar"
+						action="#{militarMB.salvar()}" update=":groupview" />
+
+
+
+				</h:form>
+			</p:panel>
+		</h:panelGroup>
+
+
+		<h:form>
+			<p:dialog id="dlglogradouro" widgetVar="dlglogradouro"
+				header="Cadastro de Logradouro" modal="true" dynamic="true"
+				draggable="false" maximizable="false" minimizable="false"
+				resizable="false">
+				<h:panelGrid columns="3" columnClasses="label,value">
+					<p:outputLabel value="Tipo Logradouro" for="cadtipologradouro" />
+					<p:selectOneMenu id="cadtipologradouro"
+						value="#{logradouroMB.tipoLogradouroParaSalvar}" required="true"
+						requiredMessage="Campo obrigatório">
+						<f:selectItem noSelectionOption="true" itemLabel="" itemValue="" />
+						<f:selectItems value="#{aplicacaoMB.tiposLogradouro}" var="_t"
+							itemLabel="#{_t.label}" itemValue="#{_t}" />
+					</p:selectOneMenu>
+					<p:message for="cadtipologradouro" />
+
+					<p:outputLabel value="Logradouro" for="cadlogradouro" />
+					<p:inputText id="cadlogradouro" styleClass="nome_de_pessoa"
+						value="#{logradouroMB.logradouroSalvar}" required="true"
+						requiredMessage="Campo obrigatório" />
+					<p:message for="cadlogradouro" />
+				</h:panelGrid>
+
+				<p:commandButton value="Salvar"
+					actionListener="#{logradouroMB.salvar}"
+					oncomplete="PF('dlglogradouro').hide();" />
+
+			</p:dialog>
+		</h:form>
+
+		<h:form>
+			<p:dialog id="dlgbairro" widgetVar="dlgbairro"
+				header="Cadastro de Bairro" modal="true" dynamic="true"
+				draggable="false" maximizable="false" minimizable="false"
+				resizable="false">
+				<h:panelGrid columns="3" columnClasses="label,value">
+
+					<p:outputLabel value="Bairro" for="cadbairro" />
+					<p:inputText id="cadbairro" styleClass="nome_de_pessoa"
+						value="#{bairroMB.bairroParaSalvar}" required="true"
+						requiredMessage="Campo obrigatório" />
+					<p:message for="cadbairro" />
+				</h:panelGrid>
+
+				<p:commandButton value="Salvar" actionListener="#{bairroMB.salvar}"
+					oncomplete="PF('dlgbairro').hide();" />
+
+			</p:dialog>
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>

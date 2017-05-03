@@ -34,4 +34,21 @@ public class MunicipioDao {
 
 	}
 
+	public List<Municipio> listaMunicipioRR() {
+		String hql = "select m from Municipio m where m.estado.sigla = 'RR' order by m.descricao";
+		return em.createQuery(hql, Municipio.class).getResultList();
+	}
+
+	public List<Municipio> autoCompleteMunicipioRR(String s) {
+		s = Normalizer.normalize(s, Normalizer.Form.NFD)
+				.replaceAll("[^\\p{ASCII}]", "").toUpperCase();
+		System.out.println(s);
+		return em
+				.createQuery(
+						"SELECT m FROM Municipio m WHERE UPPER(TRANSLATE(m.descricao,'ÁÃÂÀáãâàÉÈÊéêèÍìÓóÔôÕõÚúÇç','AAAAaaaaEEEeeeIiOoOoOoUuCc')) LIKE '"
+								+ s
+								+ "%' AND m.estado.sigla = 'RR' ORDER BY m.descricao ASC",
+						Municipio.class).getResultList();
+	}
+
 }
