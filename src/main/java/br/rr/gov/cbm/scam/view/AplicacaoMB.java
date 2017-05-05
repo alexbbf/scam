@@ -3,6 +3,7 @@ package br.rr.gov.cbm.scam.view;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
+import br.rr.gov.cbm.scam.bean.AreaAtuacao;
 import br.rr.gov.cbm.scam.bean.AreaCurso;
 import br.rr.gov.cbm.scam.bean.Banco;
 import br.rr.gov.cbm.scam.bean.CategoriaCNH;
@@ -13,6 +14,7 @@ import br.rr.gov.cbm.scam.bean.Escolaridade;
 import br.rr.gov.cbm.scam.bean.EstadoCivil;
 import br.rr.gov.cbm.scam.bean.FatorRH;
 import br.rr.gov.cbm.scam.bean.Grupo;
+import br.rr.gov.cbm.scam.bean.OBMAtuacao;
 import br.rr.gov.cbm.scam.bean.Parentesco;
 import br.rr.gov.cbm.scam.bean.Raca;
 import br.rr.gov.cbm.scam.bean.Sexo;
@@ -60,6 +62,16 @@ public class AplicacaoMB {
 	private TipoPensionista[] tipoPensionistas = TipoPensionista.values();
 	private Grupo[] grupos = Grupo.values();
 	private SituacaoOcorrencia[] situacaoOcorrencias = SituacaoOcorrencia.values();
+	private OBMAtuacao[] obmAtuacao = OBMAtuacao.values();
+	private AreaAtuacao[] areaAtuacao = AreaAtuacao.values();
+	
+	public AreaAtuacao[] getAreaAtuacao() {
+		return areaAtuacao;
+	}
+	
+	public OBMAtuacao[] getObmAtuacao() {
+		return obmAtuacao;
+	}
 	
 	public ChavePesquisaDocumento[] getChavesPesquisaDoc() {
 		return chavesPesquisaDoc;

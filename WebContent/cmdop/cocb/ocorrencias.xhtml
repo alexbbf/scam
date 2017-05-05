@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="titulo">SICAM - OCORRÊNCIAS </ui:define>
+	<ui:define name="conteudo">
+		<p:growl id="growl" autoUpdate="true" globalOnly="true" />
+
+		<h:panelGroup id="groupview">
+
+			<p:panel>
+				<h:form>
+					<p:dataTable id="ocorrenciastable" var="oco"
+						value="#{ocorrenciaMB.ocorrencias}">
+						<f:facet name="header">
+           					 Ocorrências
+      					</f:facet>
+						<p:column headerText="VTR">
+							<h:outputText value="#{oco.data}" />
+						</p:column>
+						<p:column headerText="Cod.">
+							<h:outputText value="#{car.year}" />
+						</p:column>
+						<p:column headerText="Brand">
+							<h:outputText value="#{car.brand}" />
+						</p:column>
+						<p:column headerText="Color">
+							<h:outputText value="#{car.color}" />
+						</p:column>
+						<p:column style="width:32px;text-align: center">
+							<p:commandButton update=":form:carDetail"
+								oncomplete="PF('carDialog').show()" icon="ui-icon-search"
+								title="View">
+								<f:setPropertyActionListener value="#{car}"
+									target="#{dtSelectionView.selectedCar}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+
+
+				</h:form>
+			</p:panel>
+		</h:panelGroup>
+
+
+
+
+
+
+	</ui:define>
+</ui:composition>

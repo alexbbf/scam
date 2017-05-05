@@ -50,6 +50,98 @@ public class Ocorrencia {
 	private Militar atendente;
 	
 	private String dadosInformados;
+	
+	@Temporal(TemporalType.TIME)
+	private Date horaSaida;
+	
+	@Temporal(TemporalType.TIME)
+	private Date horaNoLocal;
+	
+	@Temporal(TemporalType.TIME)
+	private Date horaSaidaLocal;
+	
+	@Temporal(TemporalType.TIME)
+	private Date horaNoDestino;
+	
+	@Temporal(TemporalType.TIME)
+	private Date horaNaOBM;
+	
+	private Double kmi;
+	
+	private Double kmf;
+	
+	@Enumerated(EnumType.STRING)
+	private AreaAtuacao areaAtuacao;
+	
+	@Enumerated(EnumType.STRING)
+	private OBMAtuacao obmAtuacao;
+	
+	
+
+	
+	public Double getKmi() {
+		return kmi;
+	}
+
+	public void setKmi(Double kmi) {
+		this.kmi = kmi;
+	}
+
+	public Double getKmf() {
+		return kmf;
+	}
+
+	public void setKmf(Double kmf) {
+		this.kmf = kmf;
+	}
+
+	public AreaAtuacao getAreaAtuacao() {
+		return areaAtuacao;
+	}
+
+	public void setAreaAtuacao(AreaAtuacao areaAtuacao) {
+		this.areaAtuacao = areaAtuacao;
+	}
+
+	public OBMAtuacao getObmAtuacao() {
+		return obmAtuacao;
+	}
+
+	public void setObmAtuacao(OBMAtuacao obmAtuacao) {
+		this.obmAtuacao = obmAtuacao;
+	}
+
+	public Date getHoraSaida() {
+		return horaSaida;
+	}
+
+	public void setHoraSaida(Date horaSaida) {
+		this.horaSaida = horaSaida;
+	}
+
+	public Date getHoraNoLocal() {
+		return horaNoLocal;
+	}
+
+	public void setHoraNoLocal(Date horaNoLocal) {
+		this.horaNoLocal = horaNoLocal;
+	}
+
+	public Date getHoraSaidaLocal() {
+		return horaSaidaLocal;
+	}
+
+	public void setHoraSaidaLocal(Date horaSaidaLocal) {
+		this.horaSaidaLocal = horaSaidaLocal;
+	}
+
+	public Date getHoraNaOBM() {
+		return horaNaOBM;
+	}
+
+	public void setHoraNaOBM(Date horaNaOBM) {
+		this.horaNaOBM = horaNaOBM;
+	}
 
 	public Integer getId() {
 		return id;
