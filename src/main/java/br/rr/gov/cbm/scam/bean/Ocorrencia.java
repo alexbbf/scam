@@ -1,16 +1,19 @@
 package br.rr.gov.cbm.scam.bean;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -25,8 +28,8 @@ public class Ocorrencia {
 	@Temporal(TemporalType.DATE)
 	private Date data;
 	
-	@Temporal(TemporalType.TIME)
-	private Date horaAviso;
+	@OneToMany(mappedBy = "ocorrencia", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<DeslocamentoVTR> deslocamentoVTR;
 	
 	@ManyToOne
 	private CodigoOcorrencia codOcorrencia;
@@ -54,21 +57,6 @@ public class Ocorrencia {
 	@Temporal(TemporalType.TIME)
 	private Date horaSaida;
 	
-	@Temporal(TemporalType.TIME)
-	private Date horaNoLocal;
-	
-	@Temporal(TemporalType.TIME)
-	private Date horaSaidaLocal;
-	
-	@Temporal(TemporalType.TIME)
-	private Date horaNoDestino;
-	
-	@Temporal(TemporalType.TIME)
-	private Date horaNaOBM;
-	
-	private Double kmi;
-	
-	private Double kmf;
 	
 	@Enumerated(EnumType.STRING)
 	private AreaAtuacao areaAtuacao;
@@ -79,21 +67,7 @@ public class Ocorrencia {
 	
 
 	
-	public Double getKmi() {
-		return kmi;
-	}
 
-	public void setKmi(Double kmi) {
-		this.kmi = kmi;
-	}
-
-	public Double getKmf() {
-		return kmf;
-	}
-
-	public void setKmf(Double kmf) {
-		this.kmf = kmf;
-	}
 
 	public AreaAtuacao getAreaAtuacao() {
 		return areaAtuacao;
@@ -119,30 +93,6 @@ public class Ocorrencia {
 		this.horaSaida = horaSaida;
 	}
 
-	public Date getHoraNoLocal() {
-		return horaNoLocal;
-	}
-
-	public void setHoraNoLocal(Date horaNoLocal) {
-		this.horaNoLocal = horaNoLocal;
-	}
-
-	public Date getHoraSaidaLocal() {
-		return horaSaidaLocal;
-	}
-
-	public void setHoraSaidaLocal(Date horaSaidaLocal) {
-		this.horaSaidaLocal = horaSaidaLocal;
-	}
-
-	public Date getHoraNaOBM() {
-		return horaNaOBM;
-	}
-
-	public void setHoraNaOBM(Date horaNaOBM) {
-		this.horaNaOBM = horaNaOBM;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -157,14 +107,6 @@ public class Ocorrencia {
 
 	public void setData(Date data) {
 		this.data = data;
-	}
-
-	public Date getHoraAviso() {
-		return horaAviso;
-	}
-
-	public void setHoraAviso(Date horaAviso) {
-		this.horaAviso = horaAviso;
 	}
 
 	public CodigoOcorrencia getCodOcorrencia() {
