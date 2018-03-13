@@ -48,7 +48,7 @@
 			</h:form>
 		</p:panel>
 		<h:panelGroup id="groupview">
-			<p:tabView activeIndex="#{tabViewMB.activetab}">
+			<p:tabView id="tabview" activeIndex="#{tabViewMB.activetab}">
 				<p:tab title="Dados básicos">
 					<h:form>
 						<h:panelGrid columns="3" columnClasses="label,value,label">
@@ -834,6 +834,88 @@
 
 				<p:commandButton value="Salvar" actionListener="#{bairroMB.salvar}"
 					oncomplete="PF('dlgbairro').hide();" />
+
+			</p:dialog>
+		</h:form>
+		
+		<h:form>
+			<p:dialog id="dlgcurso" widgetVar="dlgcurso" header="Novo curso"
+				modal="true" dynamic="true" draggable="false" maximizable="false"
+				minimizable="false" resizable="false">
+				<h:panelGrid columns="3" columnClasses="label,value">
+
+					<p:outputLabel for="nomecurso" value="Nome do Curso:" />
+					<p:autoComplete id="nomecurso" styleClass="campo_nome"
+						value="#{cursoMB.curso.nomeCurso}"
+						completeMethod="#{cursoMB.autoCompleteNomeCurso}" var="_n"
+						itemLabel="#{_n}" itemValue="#{_n}" required="true"
+						requiredMessage="Campo Nome do curso não preenchido!" />
+					<p:message for="nomecurso" />
+
+					<p:outputLabel for="area" value="Área:" />
+					<p:selectOneMenu id="area" value="#{cursoMB.curso.areaCurso}"
+						required="true" requiredMessage="Campo Obrigatório!">
+						<f:selectItems value="#{aplicacaoMB.areaCursos}" var="_a"
+							itemLabel="#{_a.label}" itemValue="#{_a}" />
+					</p:selectOneMenu>
+					<p:message for="area" />
+
+					<p:outputLabel for="tipocurso" value="Tipo:" />
+					<p:selectOneMenu id="tipocurso" value="#{cursoMB.curso.tipoCurso}"
+						required="true" requiredMessage="Campo Obrigatório!">
+						<f:selectItems value="#{aplicacaoMB.tipoCursos}" var="_t"
+							itemLabel="#{_t.label}" itemValue="#{_t}" />
+					</p:selectOneMenu>
+					<p:message for="tipocurso" />
+
+					<p:outputLabel for="instituicaocurso" value="Instituição:" />
+					<p:autoComplete id="instituicaocurso" styleClass="campo_nome"
+						value="#{cursoMB.curso.instituicao}" required="true"
+						requiredMessage="Campo Instituição não preenchido"
+						completeMethod="#{cursoMB.autoCompleteInstituicao}" var="_i"
+						itemLabel="#{_i}" itemValue="#{_i}" />
+					<p:message for="instituicaocurso" />
+
+					<p:outputLabel for="datainiciocurso" value="Data Inicio:" />
+					<p:calendar id="datainiciocurso" styleClass="campo_data"
+						value="#{cursoMB.curso.dataInicio}" locale="pt" navigator="true"
+						pattern="dd/MM/yyyy" mask="99/99/9999" yearRange="c-70:c"
+						required="false" requiredMessage="Campo Obrigatório!">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</p:calendar>
+					<p:message for="datainiciocurso" />
+
+					<p:outputLabel for="datafimcurso" value="Data Fim:" />
+					<p:calendar id="datafimcurso" styleClass="campo_data"
+						value="#{cursoMB.curso.dataFim}" locale="pt" navigator="true"
+						pattern="dd/MM/yyyy" mask="99/99/9999" yearRange="c-70:c"
+						required="false" requiredMessage="Campo Obrigatório">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</p:calendar>
+					<p:message for="datafimcurso" />
+
+					<p:outputLabel for="cargahoraria" value="Carga Horaria:" />
+					<p:inputText id="cargahoraria" styleClass="campo_numero_4"
+						value="#{cursoMB.curso.cargaHoraria}" required="false"
+						requiredMessage="Campo Obrigatório!" />
+					<p:message for="cargahoraria" />
+
+					<p:outputLabel for="situacaocurso" value="Situação:" />
+					<p:selectOneMenu id="situacaocurso"
+						value="#{cursoMB.curso.situacao}" required="true"
+						requiredMessage="Campo Situação não preenchido">
+						<f:selectItem noSelectionOption="true" itemLabel=" "
+							itemValue="#{null}" />
+						<f:selectItems value="#{aplicacaoMB.situacoesCurso}" var="_t"
+							itemLabel="#{_t.label}" itemValue="#{_t}" />
+					</p:selectOneMenu>
+					<p:message for="situacaocurso" />
+				</h:panelGrid>
+
+				<p:commandButton value="Salvar"
+					action="#{militarMB.militar.adicionarCurso(cursoMB.pegaCurso())}"
+					update=":tabview:formdadosescolares:tablecurso"
+					oncomplete="PF('dlgcurso').hide();" />
 
 			</p:dialog>
 		</h:form>
