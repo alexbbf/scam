@@ -151,7 +151,7 @@ public class Militar {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "militar", fetch = FetchType.EAGER)
 	private List<Permissao> permissoes;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "militar", fetch = FetchType.EAGER)
 	private List<Permissao> elogios;
 
@@ -277,7 +277,7 @@ public class Militar {
 	}
 
 	public void setSenha(String senha) {
-		this.senha =senha;
+		this.senha = senha;
 	}
 
 	public void setNomeGuerra(String nomeGuerra) {

@@ -24,17 +24,15 @@ public class MilitarMB {
 
 	private Militar militar = new Militar();
 
-	private List<MilitarDTO> militaresDto = new ArrayList<MilitarDTO>();
-
 	private List<MilitarDTO> militaresDTOPesquisa = new ArrayList<MilitarDTO>();
-
-	private Integer idMilitarSelecionado = null;
 
 	private MilitarDTO militarDtoSelecionado;
 
 	private ChavePesquisaMilitar chavePesquisa;
 
 	private String palavraPesquisa;
+
+	private String senha;
 
 	public void pesquisar() {
 		if (chavePesquisa.equals(ChavePesquisaMilitar.CPF)) {
@@ -58,26 +56,19 @@ public class MilitarMB {
 		militar = business.salvar(militar);
 		JsfUtil.showInfoMessage("Dados Salvos");
 	}
-	
+
 	public void salvarSenha() {
-		militar.setSenha(FrameWork.criptografar(militar.getSenha()));
+		militar.setSenha(FrameWork.criptografar(senha));
+		JsfUtil.showInfoMessage(militar.getSenha());
+		militar = business.salvar(militar);
 		militar = new Militar();
-		JsfUtil.showInfoMessage("Dados Salvos");
-	}
-
-
-	public void pesquisarNome() {
-		militaresDto = business.pesquisarNome(nomePesquisa);
-	}
-
-	public void selecionar() {
-		militar = business.selecionar(idMilitarSelecionado);
 	}
 
 	public void selecionarDto() {
 		try {
-			if (militarDtoSelecionado.getId() != null) {
+			if (militarDtoSelecionado != null) {
 				militar = business.selecionar(militarDtoSelecionado.getId());
+			} else {
 			}
 		} catch (NullPointerException npe) {
 
@@ -116,22 +107,6 @@ public class MilitarMB {
 		this.palavraPesquisa = palavraPesquisa;
 	}
 
-	public Integer getIdMilitarSelecionado() {
-		return idMilitarSelecionado;
-	}
-
-	public void setIdMilitarSelecionado(Integer idMilitarSelecionado) {
-		this.idMilitarSelecionado = idMilitarSelecionado;
-	}
-
-	public List<MilitarDTO> getMilitaresDto() {
-		return militaresDto;
-	}
-
-	public void setMilitaresDto(List<MilitarDTO> militaresDto) {
-		this.militaresDto = militaresDto;
-	}
-
 	public String getNomePesquisa() {
 		return nomePesquisa;
 	}
@@ -148,6 +123,14 @@ public class MilitarMB {
 		this.militar = militar;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public void camposUppercase() {
 		try {
 			militar.setNomeCompleto(militar.getNomeCompleto().toUpperCase());
@@ -162,6 +145,7 @@ public class MilitarMB {
 		} catch (NullPointerException npe) {
 
 		}
+
 	}
 
 }

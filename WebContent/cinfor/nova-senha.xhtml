@@ -33,8 +33,7 @@
 					rowKey="#{_d.id}" emptyMessage="Nenhum militar encontrado"
 					resizableColumns="true" scrollable="true" scrollRows="4"
 					selection="#{militarMB.militarDtoSelecionado}">
-					<p:ajax event="rowSelect" listener="#{militarMB.selecionarDto()}"
-						update="@form" />
+					<p:ajax event="rowSelect" listener="#{militarMB.selecionarDto()}" />
 					<p:column headerText="Posto/Graduação" style="width:150px;">
 						<h:outputText value="#{_d.postoGraduacao.descricao}" />
 					</p:column>
@@ -45,29 +44,29 @@
 						<h:outputText value="#{_d.nomeCompleto}" />
 					</p:column>
 				</p:dataTable>
-
 			</h:form>
 		</p:panel>
 
+		<h:panelGroup id="groupview">
+			<p:panel id="panelsenha" header="Cadastro de senha">
+				<h:form>
+					<h:panelGrid columns="2" columnClasses="label,value">
+						<p:outputLabel value="Senha:" for="senha" />
+						<p:password id="senha" value="#{militarMB.senha}" required="true"
+							requiredMessage="Campo obrigatório" match="senha2"
+							feedback="true" strongLabel="Forte" weakLabel="Fraca"
+							goodLabel="Boa" promptLabel="Insira uma senha"/>
+						<p:outputLabel value="Confirmação" for="senha2" />
+						<p:password id="senha2" value="#{militarMB.senha}" required="true"/>
+					</h:panelGrid>
+					<hr />
+					<p:commandButton id="salvar" value="Salvar"
+						action="#{militarMB.salvarSenha()}" />
+				</h:form>
+			</p:panel>
+		</h:panelGroup>
 
-		<p:panel id="panelsenha" header="Cadastro de senha">
-			<h:form id="formsenha">
-				<h:panelGrid columns="2">
-					<h:outputLabel for="senha" value="Senha:" />
-					<p:password id="senha" value="#{militarMB.militar.senha}"
-						feedback="true" promptLabel="Insira uma senha" goodLabel="BOM"
-						strongLabel="FORTE" weakLabel="FRACA" match="senha2"
-						required="true" validatorMessage="Senhas não conferem."
-						requiredMessage="Digite uma senha." />
-					<h:outputLabel for="senha2" value="Confirmar Senha:" />
-					<p:password id="senha2" value="#{militarMB.militar.senha}" />
-				</h:panelGrid>
-				<hr />
-				<p:commandButton id="salvar" value="Salvar"
-					action="#{militarMB.salvarSenha()}" update="@form" />
-			</h:form>
-
-		</p:panel>
+	
 
 
 
